@@ -11,6 +11,7 @@ type LayoutApplicationProps = PropsWithChildren;
 export default function LayoutApplication({
   children,
 }: LayoutApplicationProps) {
+
   return (
     <div className="relative w-[calc(100vw-2rem)]">
       <div className="absolute z-30 right-0 -top-10 block md:hidden">

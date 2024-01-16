@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
 import { ThemeProvider } from "./theme-provider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 type AppProviderProps = {
   children: ReactNode;
@@ -9,9 +10,10 @@ export function AppProvider({ children }: AppProviderProps) {
     <ThemeProvider
       attribute="class"
       defaultTheme="dark"
+      forcedTheme="dark"
       disableTransitionOnChange
     >
-      {children}
+      <ClerkProvider>{children}</ClerkProvider>
     </ThemeProvider>
   );
 }
