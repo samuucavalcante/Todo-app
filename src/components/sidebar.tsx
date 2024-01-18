@@ -1,14 +1,15 @@
+import { intialProfile } from "@/lib/initial-profile";
 import { cn } from "@/lib/utils";
-import { Check, ClipboardCheck, Home, ListTodo } from "lucide-react";
-import { type ComponentProps } from "react";
-import { SidebarLink } from "./sidebar-link";
-import { ModeToggle } from "./toggle-theme";
-import { Menu } from "@/constants/menu";
+import { Suspense, type ComponentProps } from "react";
 import { Logo } from "./logo";
-import { UserButton } from "@clerk/nextjs";
+import { MenuList } from "./menu-list";
+import { SidebarProfileActions } from "./sidebar-profile-actions";
+import Image from "next/image";
 
 type SidebarProps = ComponentProps<"nav"> & {};
 export async function Sidebar({ ...props }: SidebarProps) {
+  const user = await intialProfile();
+
   return (
     <nav
       className={cn(
@@ -21,20 +22,20 @@ export async function Sidebar({ ...props }: SidebarProps) {
         <Logo />
       </div>
       <div className="flex flex-col h-[60%] justify-between ">
-        <ul className="flex flex-col">
-          {Menu.map(({ name, icon: Icon, link }) => (
-            <li key={name} className="w-full">
-              <SidebarLink href={link}>
-                <Icon size={20} />
-                <span>{name}</span>
-              </SidebarLink>
-            </li>
-          ))}
-        </ul>
-        <div className="">
-          <UserButton afterSignOutUrl="/" />
-          {/* <ModeToggle /> */}
-        </div>
+        <MenuList />
+        <SidebarProfileActions>
+          <Image
+          className="rounded-full"
+          src={user?.imageUrl ?? ""}
+          alt={user?.name ?? ""}
+          width={40}
+          height={40}
+          />
+          <span className="inline-block">
+          <h5 className="text-md text-slate-300 text-start">{user?.name}</h5>
+          <p className="text-sm text-slate-400">{user?.email}</p>
+        </span>
+        </SidebarProfileActions>
       </div>
     </nav>
   );

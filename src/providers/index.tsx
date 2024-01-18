@@ -1,6 +1,9 @@
+'use client'
+import { ClerkProvider } from "@clerk/nextjs";
 import { type ReactNode } from "react";
 import { ThemeProvider } from "./theme-provider";
-import { ClerkProvider } from "@clerk/nextjs";
+import { QueryClientProvider } from "react-query";
+import { queryClient } from "@/service/query-client";
 
 type AppProviderProps = {
   children: ReactNode;
@@ -13,7 +16,11 @@ export function AppProvider({ children }: AppProviderProps) {
       forcedTheme="dark"
       disableTransitionOnChange
     >
-      <ClerkProvider>{children}</ClerkProvider>
+      <ClerkProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      </ClerkProvider>
     </ThemeProvider>
   );
 }

@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import { type ComponentProps } from "react";
 import { motion } from "framer-motion";
 
-type SidebarLinkProps = ComponentProps<typeof Link> & {};
-export function SidebarLink({ ...props }: SidebarLinkProps) {
+type MenuLinkProps = ComponentProps<typeof Link> & {};
+export function MenuLink({ ...props }: MenuLinkProps) {
   const pathname = usePathname();
   const isActive = pathname === props.href;
 
