@@ -6,6 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import { Skeleton } from "./ui/skeleton";
 
 {
   /* <TaskRoot>
@@ -92,5 +93,22 @@ export function TaskStatus({ ...props }: TaskStatusProps) {
       className={cn(props.className, "mt-auto flex justify-between")}
       {...props}
     />
+  );
+}
+
+type TaskSkeletonProps = ComponentProps<"div"> & {};
+export function TaskSkeleton({ ...props }: TaskSkeletonProps) {
+  return (
+    <Task className="border-2 flex flex-col border-[#333333] gap-2 p-2" {...props}>
+      <TaskTitle className="">
+        <Skeleton className="w-3/4 h-6" />
+      </TaskTitle>
+      <TaskContent>
+        <Skeleton className="w-full h-24" />
+      </TaskContent>
+      <TaskFooter>
+        <Skeleton className="w-full h-6" />
+      </TaskFooter>
+    </Task>
   );
 }

@@ -5,25 +5,25 @@ import {
   TaskContent,
   TaskFooter,
   TaskIcon,
+  TaskSkeleton,
   TaskStatus,
-  TaskTitle
+  TaskTitle,
 } from "@/components/task";
 import { api } from "@/service/api";
 import { Todo } from "@prisma/client";
 import { FilePenLine, Trash } from "lucide-react";
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
 export function TaskList() {
-  const { data, error, isLoading } = useQuery<Todo[]>('', async (url) => {
-    const response = await api.get(`http://localhost:3000/api/todos`)
-    return response?.data.tasks as Todo[]
-  })
+  const { data, error, isLoading } = useQuery<Todo[]>("", async (url) => {
+    const response = await api.get(`http://localhost:3000/api/todos`);
+    return response?.data.tasks as Todo[];
+  });
 
   return (
     <>
-      {isLoading && "Aguarde"}
-      {error && <pre>{JSON.stringify(error, null, 2)}</pre>} 
-     {data?.map(({ id, title, content, status }, idx) => (
+      {isLoading && Array.from({ length: 12 }).map((_i,idx) => <TaskSkeleton  key={idx}/>)}
+      {data?.map(({ id, title, content, status }, idx) => (
         <Task key={id}>
           <TaskTitle>
             {title} {idx}
@@ -42,11 +42,6 @@ export function TaskList() {
           </TaskFooter>
         </Task>
       ))}
-      <Task>
-        <TaskContent>
-          <span>Escreva Alguma tarefa</span>
-        </TaskContent>
-      </Task>
     </>
   );
 }
