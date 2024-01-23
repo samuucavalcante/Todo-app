@@ -8,7 +8,7 @@ export async function MenuList({ ...props }: MenuListProps) {
     <ul {...props} className="flex flex-col">
       {Menu?.map(({ name, icon: Icon, link }) => (
         <li key={name} className="w-full">
-          <MenuLink href={link}>
+        <MenuLink href={link}>
             <Icon size={20} />
             <span>{name}</span>
           </MenuLink>

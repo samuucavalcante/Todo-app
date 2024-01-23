@@ -3,7 +3,7 @@ import axios from "axios";
 import { getCookie } from 'cookies-next';
 
 const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://localhost:3000/",
 });
 const isServer = typeof window === 'undefined'
 

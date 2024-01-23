@@ -21,7 +21,7 @@ export function MenuLink({ ...props }: MenuLinkProps) {
         {isActive ? (
           <motion.span
             layoutId="underline"
-            className="absolute right-0 top-0 h-full w-1 rounded-md bg-green-500"
+            className="absolute right-0 top-0 h-full w-1 rounded-md bg-white"
           />
         ) : null}
         {props.children}

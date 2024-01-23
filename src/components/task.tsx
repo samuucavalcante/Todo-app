@@ -25,12 +25,12 @@ import { Skeleton } from "./ui/skeleton";
 }
 
 type TaskProps = ComponentProps<"div"> & {};
-export function Task({ ...props }: TaskProps) {
+export function Task({ className, ...props }: TaskProps) {
   return (
     <div
       className={cn(
-        props.className,
-        "border-1 items-stretch border-slate-800 h-44 flex flex-col bg-[#333233] p-2 rounded-md"
+        "border-2 items-stretch border-white/10 h-44 flex flex-col bg-[#09090B] p-2 rounded-md",
+        className,
       )}
       {...props}
     />
@@ -99,7 +99,7 @@ export function TaskStatus({ ...props }: TaskStatusProps) {
 type TaskSkeletonProps = ComponentProps<"div"> & {};
 export function TaskSkeleton({ ...props }: TaskSkeletonProps) {
   return (
-    <Task className="border-2 flex flex-col border-[#333333] gap-2 p-2" {...props}>
+    <Task  className="bg-transparent border flex flex-col border-white/10 gap-2 p-2" {...props} >
       <TaskTitle className="">
         <Skeleton className="w-3/4 h-6" />
       </TaskTitle>

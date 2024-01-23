@@ -11,20 +11,28 @@ datasource db {
 }
 
 model User {
-  id       String @id @unique
-  email    String @unique
+  id       String  @id @unique
+  email    String  @unique
   name     String
   imageUrl String
   todos    Todo[]
 }
 
 model Todo {
-  id        String   @id @unique @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @unique @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   title     String
-  content   String
-  status    String
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+  tasks     Task[]
+}
+
+model Task {
+  id        String  @id @unique
+  index     Int
+  title     String
+  completed Boolean
+  todoId    String
+  todo      Todo    @relation(fields: [todoId], references: [id])
 }

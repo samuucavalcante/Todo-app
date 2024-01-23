@@ -1,19 +1,22 @@
-import { db } from "@/lib/prisma";
-import { auth } from "@clerk/nextjs";
-import { Todo } from "@prisma/client";
+import { api } from "./api";
+import { Todo } from "@/service/todo.dto";
 
 export const getAllTodos = async (): Promise<Todo[]> => {
-  const userId = auth().userId;
-
-  return userId ? await db.todo.findMany({ where: { userId } }) : [];
+  const response = await api.get(`api/todos`);
+  return response?.data.tasks as Todo[];
 };
 
-export const createTodo = async (todo: Partial<Todo>) => {
-  const response = await fetch("http://localhost:3000/api/todos", {
-    method: "POST",
-    body: JSON.stringify({ todo }),
-  });
+export const createTodo = async (data: Omit<Todo, 'userId'>): Promise<Todo> => {
+  const response = await api.post(`api/todos`, { todo: data });
+  return response?.data.todo as Todo
+};
 
-  const data = await response.json()
-  return data
+export const updateTodo = async (data: Todo): Promise<Todo[]> => {
+  const response = await api.patch(`api/todos/${data.id}`, data);
+  return response?.data.tasks as Todo[];
+};
+
+export const deleteTodo = async (data: Todo): Promise<Todo[]> => {
+  const response = await api.delete(`api/todos/${data.id}`);
+  return response?.data.tasks as Todo[];
 };
