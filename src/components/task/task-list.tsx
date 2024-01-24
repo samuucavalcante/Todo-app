@@ -8,9 +8,10 @@ import {
   TaskSkeleton,
   TaskStatus,
   TaskTitle,
-} from "@/components/task";
+} from "@/components/ui/task";
 import { useFetchTodos } from "@/hooks/api/useTodos";
 import { FilePenLine, Trash } from "lucide-react";
+import { TaskButtonAction } from "./task-button-action";
 
 export function TaskList() {
   const { data: todos, isLoading } = useFetchTodos();
@@ -19,26 +20,17 @@ export function TaskList() {
     <>
       {isLoading &&
         Array.from({ length: 12 }).map((_i, idx) => <TaskSkeleton key={idx} />)}
-      {todos?.map(({ id, title, tasks }, idx) => (
+      {todos?.map(({ id, title, tasks }) => (
         <Task key={id}>
-          <TaskTitle>
-            {title}
-          </TaskTitle>
+          <TaskTitle>{title}</TaskTitle>
           <TaskContent>
             {tasks?.map((task) => (
               <li key={task?.id}>{task?.title}</li>
             ))}
           </TaskContent>
           <TaskFooter>
-            <TaskStatus>{status}</TaskStatus>
-            <TaskActions>
-              <TaskIcon label="Edit">
-                <FilePenLine size={20} />
-              </TaskIcon>
-              <TaskIcon label="Delete">
-                <Trash size={20} />
-              </TaskIcon>
-            </TaskActions>
+            {/* <TaskStatus>{status}</TaskStatus> */}
+            <TaskButtonAction />
           </TaskFooter>
         </Task>
       ))}

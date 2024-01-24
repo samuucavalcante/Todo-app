@@ -1,6 +1,6 @@
 "use state";
 import { UseControllerProps, useController } from "react-hook-form";
-import { type FormTodo } from "./form-todo";
+import { FormTodo } from "../schemas/todo-schema";
 
 type FormTodoTitleInputProps = UseControllerProps<FormTodo>;
 export function FormTodoTitleInput(props: FormTodoTitleInputProps) {
@@ -18,7 +18,7 @@ export function FormTodoTitleInput(props: FormTodoTitleInputProps) {
       {fieldState.error?.message && (
         <span className="absolute -bottom-3  text-red-600 text-xs">
           {fieldState.error.message}
-        </span>
+        </span> 
       )}
     </div>
   );

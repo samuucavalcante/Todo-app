@@ -11,8 +11,8 @@ import {
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
 import { useRef } from "react";
-import { FormTodo } from "./form-todo";
-import { FormTodoTitleInput } from "./form-todo-title-input";
+import { FormTodo } from "./form/form-todo/form-todo";
+import { FormTodoTitleInput } from "./form/form-todo/form-todo-title-input";
 import { Button } from "./ui/button";
 
 export function AddTodo() {
@@ -43,7 +43,7 @@ export function AddTodo() {
             <DialogFooter>
               <Button size="sm" type="submit">Salvar</Button>
             </DialogFooter>
-          }
+          } 
         />
         <DialogClose ref={buttonCloseRef} />
       </DialogContent>

@@ -13,7 +13,7 @@ import { GripVertical, Plus, Trash2 } from "lucide-react";
 import { ReactNode } from "react";
 import { UseFormStateProps, useFieldArray, useForm } from "react-hook-form";
 import { FormTodoTitleInput } from "./form-todo-title-input";
-import { FormTodo, todoSchema } from "./form/schemas/todo-schema";
+import { FormTodo, todoSchema } from "../schemas/todo-schema";
 import { useTodos } from "@/hooks/api/useTodos";
 import uuid from "react-uuid";
 

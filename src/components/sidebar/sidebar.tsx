@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 import { Suspense, type ComponentProps } from "react";
-import { Logo } from "./logo";
-import { MenuList } from "./menu-list";
 import { SidebarProfile } from "./sidebar-profile";
 import { SidebarProfileActions } from "./sidebar-profile-actions";
-import { SkeletonProfile } from "./skeleton-profile";
+import { Logo } from "../logo";
+import { MenuList } from "../menu/menu-list";
+import { SkeletonProfile } from "../skeleton-profile";
 
 type SidebarProps = ComponentProps<"nav"> & {};
 export async function Sidebar({ ...props }: SidebarProps) {

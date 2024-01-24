@@ -5,8 +5,8 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "./ui/tooltip";
-import { Skeleton } from "./ui/skeleton";
+} from "./tooltip";
+import { Skeleton } from "./skeleton";
 
 {
   /* <TaskRoot>

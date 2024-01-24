@@ -11,9 +11,9 @@ export const createTodo = async (data: Omit<Todo, 'userId'>): Promise<Todo> => {
   return response?.data.todo as Todo
 };
 
-export const updateTodo = async (data: Todo): Promise<Todo[]> => {
+export const updateTodo = async (data: Todo): Promise<Todo> => {
   const response = await api.patch(`api/todos/${data.id}`, data);
-  return response?.data.tasks as Todo[];
+  return response?.data.todo as Todo;
 };
 
 export const deleteTodo = async (data: Todo): Promise<Todo[]> => {
