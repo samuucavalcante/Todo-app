@@ -324,6 +324,13 @@
     snakecase-keys "3.2.1"
     tslib "2.4.1"
 
+"@clerk/localizations@^1.26.13":
+  version "1.26.13"
+  resolved "https://registry.yarnpkg.com/@clerk/localizations/-/localizations-1.26.13.tgz#d0a3ebdfd144d8c93c9309de179a9bcab3dc445d"
+  integrity sha512-YsH9WVqkZYJ3ffCP1wce3KWrQo8C3BUS5b7grOpwt/H15sK0Y3KyeS3py1QqcfMcYj+gqjcbW9Az8MpdUeP8Rg==
+  dependencies:
+    "@clerk/types" "3.60.0"
+
 "@clerk/nextjs@^4.29.3":
   version "4.29.3"
   resolved "https://registry.yarnpkg.com/@clerk/nextjs/-/nextjs-4.29.3.tgz#50bd5100efc32c00ee7b3e92acaa65a7427cda4c"
@@ -345,6 +352,11 @@
     glob-to-regexp "0.4.1"
     js-cookie "3.0.1"
     swr "2.2.0"
+
+"@clerk/themes@^1.7.9":
+  version "1.7.9"
+  resolved "https://registry.yarnpkg.com/@clerk/themes/-/themes-1.7.9.tgz#b2650a6b3c36109e077ff12891425192e8f5a801"
+  integrity sha512-9hXxgoPuUSlZ7sH9diJEK1rTWEnk0zGKBYw4Tqaqp0RA1dtB+OHE02DK5pnTypZTnreBJYac3VmxFVTxVV35xg==
 
 "@clerk/types@3.60.0":
   version "3.60.0"

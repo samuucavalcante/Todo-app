@@ -5,7 +5,7 @@ import cookies from 'cookies-next'
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 export default authMiddleware({
-  publicRoutes: ["/","/check-me", "/api/todos"],
+  publicRoutes: [],
 });
 
 export const config = {

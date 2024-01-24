@@ -1,11 +1,13 @@
 import { intialProfile } from "@/lib/initial-profile";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import { type ComponentProps } from "react";
 
 type SidebarProfileProps = ComponentProps<"div"> & {};
 export async function SidebarProfile({ ...props }: SidebarProfileProps) {
   const user = await intialProfile();
 
+  if (!user.id) redirect("/sign-in");
   return (
     <>
       <Image

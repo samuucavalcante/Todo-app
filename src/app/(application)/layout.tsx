@@ -1,7 +1,7 @@
 import { AddTodo } from "@/components/add-todo";
 import { Logo } from "@/components/logo";
 import { MenuCurrent } from "@/components/menu/menu-current";
-import { Sidebar } from "@/components/sidebar";
+import { Sidebar } from "@/components/sidebar/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Menu, User } from "lucide-react";
 import { Suspense, type PropsWithChildren } from "react";
