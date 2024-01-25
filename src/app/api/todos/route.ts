@@ -8,9 +8,8 @@ export async function GET(req: Request) {
   const { userId } = getAuth(req as any);
   if (!userId) throw new Error("user not authenticated");
 
-  const tasks = await db.todo.findMany({ where: { userId } });
-
-  return Response.json({ tasks });
+  const todos = await db.todo.findMany({ where: { userId }, select: { id: true, title: true, tasks: true } });
+  return Response.json({ todos });
 }
 
 export async function POST(req: Request) {

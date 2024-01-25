@@ -9,26 +9,43 @@ import {
   OnDragEndResponder,
 } from "@hello-pangea/dnd";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { GripVertical, Plus, Trash2 } from "lucide-react";
-import { ReactNode } from "react";
+import {
+  ArrowUpRightFromCircle,
+  Circle,
+  GripVertical,
+  Plus,
+  Trash2,
+} from "lucide-react";
+import {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { UseFormStateProps, useFieldArray, useForm } from "react-hook-form";
 import { FormTodoTitleInput } from "./form-todo-title-input";
 import { FormTodo, todoSchema } from "../schemas/todo-schema";
 import { useTodos } from "@/hooks/api/useTodos";
 import uuid from "react-uuid";
+import { Skeleton } from "@/components/ui/skeleton";
+import { reorder, sortByProperty } from "@/utils/array";
 
 type FormTodoProps = {
+  todoId?: string;
   onFinish?: () => void;
   customButton?: ReactNode;
   customTitle?: (form: UseFormStateProps<FormTodo>) => ReactNode;
 };
 
 export function FormTodo({
-  customTitle,
+  todoId,
   onFinish,
+  customTitle,
   customButton,
 }: FormTodoProps) {
-  const { create } = useTodos();
+  const { create, update, get } = useTodos();
+  const [loading, setLoading] = useState(!!todoId);
   const { ...form } = useForm<FormTodo>({
     resolver: zodResolver(todoSchema),
     delayError: 0,
@@ -37,28 +54,55 @@ export function FormTodo({
       tasks: [],
     },
   });
+
   const { fields, append, remove, swap } = useFieldArray({
     control: form.control,
     name: "tasks",
   });
 
-  const onSubmit = async (data: FormTodo) => {
-    await create({
-      id: uuid(),
-      tasks: data.tasks,
+  const getTodo = useCallback(async () => {
+    if (!todoId) return;
+    const todo = await get(todoId);
+    setLoading(false);
+    form.reset({...todo, tasks: sortByProperty(todo.tasks, 'index')});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [todoId]);
+
+  useEffect(() => {
+    getTodo();
+  }, [getTodo]);
+
+  const onSubmit = async (data: FormTodo, callOnFinish: boolean) => {
+    const store = todoId ? update : create;
+    await store({
+      id: data.id ? data.id : uuid(),
+      tasks: sortByProperty(data.tasks, 'index'),
       title: data.title,
+      userId: data.userId as string,
     });
 
-    onFinish?.();
+    callOnFinish && onFinish?.();
   };
 
-  const onDragEnd: OnDragEndResponder = (result) => {
+  const onDragEnd: OnDragEndResponder = async (result) => {
     if (!result.destination) return;
-    const initial = result.source.index;
-    const final = result.destination.index;
-    swap(initial, final);
-  };
 
+    const initialIndex = result.source.index;
+    const finalIndex = result.destination.index;
+
+    const tasksReordeded = reorder(form.getValues("tasks"), initialIndex, finalIndex);
+    const makePayload = tasksReordeded.map((task, index) => ({...task, index}))
+
+    form.setValue("tasks", makePayload);
+
+    // const updatedTasks = [...form.getValues("tasks")];
+    // const [movedTask] = updatedTasks.splice(initialIndex, 1);
+    // updatedTasks.splice(finalIndex, 0, movedTask);
+    // form.setValue("tasks", updatedTasks);
+    const data = form.getValues();
+    // console.log({updatedTasks, tasks: data.tasks})
+    await onSubmit(data, false);
+  };
   const onAddTask = () => {
     append({
       id: uuid(),
@@ -69,33 +113,49 @@ export function FormTodo({
     });
   };
 
+  const title = customTitle ? (
+    customTitle(form)
+  ) : (
+    <FormTodoTitleInput name="title" control={form.control} />
+  );
+
+  const buttonSubmit = customButton ? (
+    customButton
+  ) : (
+    <Button type="submit">Submit</Button>
+  );
+
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="space-y-2">
-          {customTitle ? (
-            customTitle(form)
-          ) : (
-            <FormTodoTitleInput name="title" control={form.control} />
-          )}
-          <button
-            type="button"
-            onClick={onAddTask}
-            className="border flex flex-row items-center border-transparent transition-all duration-100 p-2 text-sm rounded-md hover:border-white/50"
-          >
-            <Plus />
-            <span>Adicionar tarefas</span>
-          </button>
-        </div>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="tasks" direction="vertical">
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit((data) => onSubmit(data, true))}
+          className="space-y-8"
+        >
+          <div className="space-y-2 ">
+            {loading ? <Skeleton className="-ml-3 w-60 h-7 -mt-2" /> : title}
+            <button
+              type="button"
+              onClick={onAddTask}
+              className="border flex flex-row items-center border-transparent transition-all duration-100 p-2 text-sm rounded-md hover:border-white/50"
+            >
+              <Plus />
+              <span>Adicionar tarefas</span>
+            </button>
+          </div>
+          <Droppable droppableId="tasks" type="list" direction="vertical">
             {(provided) => (
               <ul
                 ref={provided.innerRef}
                 {...provided.droppableProps}
-                className="space-y-4"
+                className="space-y-4 transition-all duration-150 overflow-auto max-h-[154px]"
               >
-                {fields.map((field, index) => (
+                {!fields.length && !loading && !!form.watch("title").length && (
+                  <p className="text-white/60 italic">
+                    Nenhuma mini-tarefa criada ainda.
+                  </p>
+                )}
+                {sortByProperty(fields, "index").map((field, index) => (
                   <Draggable
                     index={index}
                     draggableId={field.id}
@@ -149,10 +209,9 @@ export function FormTodo({
               </ul>
             )}
           </Droppable>
-        </DragDropContext>
-
-        {customButton ? customButton : <Button type="submit">Submit</Button>}
-      </form>
-    </Form>
+          {buttonSubmit}
+        </form>
+      </Form>
+    </DragDropContext>
   );
 }

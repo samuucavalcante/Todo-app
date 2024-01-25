@@ -1,4 +1,4 @@
-import { createTodo, getAllTodos, updateTodo } from "@/service/todo";
+import { createTodo, getAllTodos, getTodo, updateTodo } from "@/service/todo";
 import { Todo } from "@/service/todo.dto";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -6,6 +6,7 @@ const KEY = ["todos"];
 
 export function useTodos() {
   const clientQuery = useQueryClient();
+
   const create = useMutation({
     mutationFn: createTodo,
     mutationKey: KEY,
@@ -13,6 +14,11 @@ export function useTodos() {
       const prevData = clientQuery.getQueryData<Todo[]>(KEY) as Todo[];
       clientQuery.setQueryData<Todo[]>(KEY, [data, ...prevData]);
     },
+  });
+
+  const get = useMutation({
+    mutationFn: getTodo,
+    mutationKey: KEY,
   });
 
   const update = useMutation({
@@ -24,9 +30,8 @@ export function useTodos() {
       clientQuery.setQueryData<Todo[]>(KEY, dataUpdated);
     },
   });
- 
 
-  const createTodoLocal = async (todo: Omit<Todo, "userId">) => {
+  const createTodoLocal = async (todo: Todo) => {
     return await create.mutateAsync(todo);
   };
 
@@ -34,7 +39,15 @@ export function useTodos() {
     return await update.mutateAsync(todo);
   };
 
-  return { create: createTodoLocal, update: updateTodoLocal };
+  const getTodoLocal = async (todoId: string) => {
+    return await get.mutateAsync(todoId);
+  };
+
+  return {
+    create: createTodoLocal,
+    update: updateTodoLocal,
+    get: getTodoLocal,
+  };
 }
 
 export function useFetchTodos() {

@@ -1,9 +1,10 @@
-import { AddTodo } from "@/components/add-todo";
+import {  StoreTodo } from "@/components/store-todo";
 import { Logo } from "@/components/logo";
 import { MenuCurrent } from "@/components/menu/menu-current";
 import { Sidebar } from "@/components/sidebar/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Menu, User } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Menu, Plus, User } from "lucide-react";
 import { Suspense, type PropsWithChildren } from "react";
 
 type LayoutApplicationProps = PropsWithChildren;
@@ -36,7 +37,15 @@ export default async function LayoutApplication({
             </h3>
             <div className="absolute h-0.5 w-8 rounded-md bg-white" />
           </div>
-          <AddTodo />
+          <StoreTodo
+            triggerComponent={
+              <button
+                className={cn("rounded-full border-2 p-1 border-slate-600 ")}
+              >
+                <Plus className="text-slate-600 font-bold" />
+              </button>
+            }
+          />
         </div>
         <div className="relative grid w-full h-[calc(100vh-15rem)] overflow-y-scroll pr-3 md:pr-0 md:overflow-hidden md:h-auto top-24 md:top-16 gap-4 grid-cols-1 pb-4 lg:grid-cols-2 xl:grid-cols-4">
           {children}

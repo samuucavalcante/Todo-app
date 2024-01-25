@@ -11,7 +11,7 @@ export function FormTodoTitleInput(props: FormTodoTitleInputProps) {
       <input
         {...field}
         value={field.value as string}
-        className="font-bold text-2xl placeholder:text-center ml-0 pl-0 placeholder:italic bg-transparent border-transparent focus-visible:ring-0 focus-visible:ring-transparent focus-visible:border-none focus-visible:outline-0"
+        className="w-[100%]  font-bold text-2xl placeholder:text-center  ml-0 pl-0 placeholder:italic bg-transparent border-transparent focus-visible:ring-0 focus-visible:ring-transparent focus-visible:border-none focus-visible:outline-0"
         placeholder="*Título"
         autoFocus
       />

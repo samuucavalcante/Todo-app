@@ -10,12 +10,17 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
-import { useRef } from "react";
+import { type ReactNode, useRef } from "react";
 import { FormTodo } from "./form/form-todo/form-todo";
 import { FormTodoTitleInput } from "./form/form-todo/form-todo-title-input";
 import { Button } from "./ui/button";
 
-export function AddTodo() {
+type StoreTodoProps = {
+  triggerComponent: ReactNode
+  todoId?: string
+}
+
+export function StoreTodo({ triggerComponent, todoId }: StoreTodoProps) {
   const buttonCloseRef = useRef<HTMLButtonElement>(null)
 
   const onFinish = () => {
@@ -23,25 +28,25 @@ export function AddTodo() {
   }
 
   return (
-    <Dialog>
+    <Dialog >
       <DialogTrigger asChild>
-        <button className={cn("rounded-full border-2 p-1 border-slate-600 ")}>
-          <Plus className="text-slate-600 font-bold" />
-        </button>
+        {triggerComponent}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      
+      <DialogContent className="w-[calc(100vw-2rem)] overflow-auto  w-max-[425px]">
         <FormTodo
+          todoId={todoId}
           onFinish={onFinish}
           customTitle={(form) => (
-            <DialogHeader className="-mt-4">
+            <DialogHeader className="">
               <DialogTitle className="">
                 <FormTodoTitleInput name="title" control={form.control} />
               </DialogTitle>
             </DialogHeader>
           )}
           customButton={
-            <DialogFooter>
-              <Button size="sm" type="submit">Salvar</Button>
+            <DialogFooter >
+              <Button size="sm" className="w-[100%]" type="submit">Salvar</Button>
             </DialogFooter>
           } 
         />

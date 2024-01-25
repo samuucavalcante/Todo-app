@@ -1,17 +1,14 @@
 "use client";
 import {
   Task,
-  TaskActions,
   TaskContent,
   TaskFooter,
-  TaskIcon,
   TaskSkeleton,
-  TaskStatus,
-  TaskTitle,
+  TaskTitle
 } from "@/components/ui/task";
 import { useFetchTodos } from "@/hooks/api/useTodos";
-import { FilePenLine, Trash } from "lucide-react";
 import { TaskButtonAction } from "./task-button-action";
+import { sortByProperty } from "@/utils/array";
 
 export function TaskList() {
   const { data: todos, isLoading } = useFetchTodos();
@@ -24,13 +21,13 @@ export function TaskList() {
         <Task key={id}>
           <TaskTitle>{title}</TaskTitle>
           <TaskContent>
-            {tasks?.map((task) => (
+            {sortByProperty(tasks, 'index')?.map((task) => (
               <li key={task?.id}>{task?.title}</li>
             ))}
           </TaskContent>
           <TaskFooter>
             {/* <TaskStatus>{status}</TaskStatus> */}
-            <TaskButtonAction />
+            <TaskButtonAction todoId={id} />
           </TaskFooter>
         </Task>
       ))}
