@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import { type ComponentProps } from "react";
 import { motion } from "framer-motion";
 
-type SidebarLinkProps = ComponentProps<typeof Link> & {};
-export function SidebarLink({ ...props }: SidebarLinkProps) {
+type MenuLinkProps = ComponentProps<typeof Link> & {};
+export function MenuLink({ ...props }: MenuLinkProps) {
   const pathname = usePathname();
   const isActive = pathname === props.href;
 
@@ -21,7 +21,7 @@ export function SidebarLink({ ...props }: SidebarLinkProps) {
         {isActive ? (
           <motion.span
             layoutId="underline"
-            className="absolute right-0 top-0 h-full w-1 rounded-md bg-green-500"
+            className="absolute right-0 top-0 h-full w-1 rounded-md bg-white"
           />
         ) : null}
         {props.children}

@@ -1,3 +1,4 @@
+import 'react-circular-progressbar/dist/styles.css';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -19,17 +20,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning >
       <body
         className={cn(
           inter.className,
-          "bg-[#19181a] p-4 w-[calc(100vw-64px)] h-[calc(100vh-64px)]",
+          "bg-[#09090B] p-4 w-[calc(100vw-64px)] h-[calc(100vh-64px)]",
           "overflow-hidden"
         )}
       >
         <NextTopLoader
           height={2}
-          color={"rgb(34 197 94)"}
+          color={"rgb(255 255 255)"}
           easing="cubic-bezier(0.53, 0.21, 0,.67)"
         />
         <AppProvider>{children}</AppProvider>

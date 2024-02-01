@@ -2,7 +2,7 @@ import { type ComponentProps } from "react";
 import { Share_Tech_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const font = Share_Tech_Mono({ weight: ["400"] });
+const font = Share_Tech_Mono({ subsets: ['latin'], weight: ["400"] });
 
 type LogoProps = ComponentProps<"h3"> & {};
 export function Logo({ ...props }: LogoProps) {
