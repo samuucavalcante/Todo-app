@@ -16,12 +16,12 @@ export function TaskButtonAction({ todoId }: TaskButtonActionProps) {
           todoId={todoId}
           triggerComponent={
             <TaskIcon label="Editar">
-              <FilePenLine size={20} />
+              <FilePenLine size={16} />
             </TaskIcon>
           }
         />
         <TaskIcon label="Apagar">
-          <Trash size={20} />
+          <Trash size={16} />
         </TaskIcon>
       </TaskActions>
     </>

@@ -31,24 +31,6 @@ export async function PATCH(
   const { todo: todoBody } = (await req.json()) as { todo: Todo };
 
   const requestTasks = todoBody.tasks;
-  console.log(requestTasks);
-  // const upsertPromises = requestTasks.map((task) =>
-  //   task.todoId
-  //     ? db.task.update({
-  //         where: { id: task.id, todoId: task.todoId },
-  //         data: task,
-  //       })
-  //     : db.task.create({
-  //         data: {
-  //           id: task.id,
-  //           completed: task.completed,
-  //           todoId: params.id,
-  //           index: task.index,
-  //           title: task.title,
-  //         },
-  //       })
-  // );
-
   const upsertPromises = requestTasks.map((task) =>
     db.task.upsert({
       where: { id: task.id, todoId: params.id },

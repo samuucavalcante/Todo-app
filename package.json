@@ -36,6 +36,7 @@
     "next-themes": "^0.2.1",
     "nextjs-toploader": "^1.6.4",
     "react": "^18",
+    "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18",
     "react-hook-form": "^7.49.3",
     "react-perfect-scrollbar": "^1.5.8",

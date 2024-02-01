@@ -94,14 +94,6 @@ export function FormTodo({
     const makePayload = tasksReordeded.map((task, index) => ({...task, index}))
 
     form.setValue("tasks", makePayload);
-
-    // const updatedTasks = [...form.getValues("tasks")];
-    // const [movedTask] = updatedTasks.splice(initialIndex, 1);
-    // updatedTasks.splice(finalIndex, 0, movedTask);
-    // form.setValue("tasks", updatedTasks);
-    const data = form.getValues();
-    // console.log({updatedTasks, tasks: data.tasks})
-    await onSubmit(data, false);
   };
   const onAddTask = () => {
     append({
