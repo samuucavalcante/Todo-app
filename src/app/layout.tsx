@@ -5,6 +5,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { AppProvider } from "@/providers";
 import NextTopLoader from "nextjs-toploader";
+import { auth } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +21,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+
   return (
     <html lang="en" suppressHydrationWarning >
       <body

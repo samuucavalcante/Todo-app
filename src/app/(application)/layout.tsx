@@ -1,4 +1,4 @@
-import {  StoreTodo } from "@/components/store-todo";
+import { StoreTodo } from "@/components/store-todo";
 import { Logo } from "@/components/logo";
 import { MenuCurrent } from "@/components/menu/menu-current";
 import { Sidebar } from "@/components/sidebar/sidebar";
@@ -6,11 +6,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { Menu, Plus, User } from "lucide-react";
 import { Suspense, type PropsWithChildren } from "react";
+import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 type LayoutApplicationProps = PropsWithChildren;
 export default async function LayoutApplication({
   children,
 }: LayoutApplicationProps) {
+
+  if (!auth().userId)  redirect("/sign-in");
+
   return (
     <div className="relative w-[calc(100vw-2rem)]">
       <div className="absolute z-30 right-0 -top-10 block md:hidden">
