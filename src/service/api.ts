@@ -3,7 +3,7 @@ import axios from "axios";
 import { getCookie } from 'cookies-next';
 
 const api = axios.create({
-  baseURL: process.env.API_URL || process.env.VERCEL_URL
+  baseURL: process.env.VERCEL_URL || "http://localhost:3000"
 });
 const isServer = typeof window === 'undefined'
 

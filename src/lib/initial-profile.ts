@@ -3,9 +3,30 @@ import { db } from "@/lib/prisma";
 import { User } from "@prisma/client";
 
 export const intialProfile = async (): Promise<User> => {
-  const response = await fetch(`${process.env.API_URL || process.env.VERCEL_URL}/api/me`)
+  const user = await currentUser();
 
-  const data = await response.json()
+  if (!user) {
+    return redirectToSignIn();
+  }
 
-  return data.user as User
+  const profile = await db.user.findUnique({
+    where: {
+      id: user.id
+    }
+  })
+
+  if (profile) {
+    return profile
+  }
+
+  const newProfile = await db.user.create({
+    data: {
+      id: user.id,
+      name: `${user.firstName} ${user.lastName}`,
+      imageUrl: user.imageUrl,
+      email: user.emailAddresses[0].emailAddress
+    }
+  })
+
+  return newProfile;
 }

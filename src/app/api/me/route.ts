@@ -1,22 +1,30 @@
 import { db } from "@/lib/prisma";
-import { currentUser, redirectToSignIn } from "@clerk/nextjs";
+import { getAuth } from "@clerk/nextjs/server";
 
 export async function GET(req: Request) {
-  const user = await currentUser();
+  const userId = getAuth(req as any).userId;
+  console.log({userId1: userId})
 
-  if (!user) {
+  if (!userId) {
     return Response.json({ user: null });
   }
 
   const profile = await db.user.findUnique({
     where: {
-      id: user.id,
+      id: userId,
     },
   });
-
+  console.log({ profile })
   if (profile) {
     return Response.json({ user: profile });
   }
+
+
+  Response.json({ user: null });
+}
+
+export async function POST(req: Request) {
+  const { user } = await req.json();
 
   const newProfile = await db.user.create({
     data: {
@@ -27,5 +35,5 @@ export async function GET(req: Request) {
     },
   });
 
-  Response.json({ user: newProfile });
+  return Response.json({ user: newProfile });
 }
