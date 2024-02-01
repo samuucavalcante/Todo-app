@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Todo App
 
-## Getting Started
+Este é um aplicativo Todo (Lista de Tarefas) desenvolvido por [Seu Nome] utilizando as seguintes tecnologias:
 
-First, run the development server:
+- **Frontend:**
+  - [Next.js](https://nextjs.org/) v14 - O framework React para produção.
+  - [Tailwind CSS](https://tailwindcss.com/) - Um utilitário de estilo CSS de baixo nível.
+  - [Shadcn](https://github.com/yourusername/shadcn) - Uma biblioteca de sombras para projetos usando Tailwind CSS.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Backend:**
+  - [Prisma](https://www.prisma.io/) - Um ORM (Object-Relational Mapping) moderno para Node.js e TypeScript.
+  - SQL - O backend utiliza um banco de dados SQL para armazenar as informações das tarefas.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Funcionalidades
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Adicionar novas tarefas.
+- Marcar tarefas como concluídas.
+- Excluir tarefas.
+- Visualizar a lista de tarefas pendentes.
+- Visualizar a lista de tarefas concluídas.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Pré-requisitos
 
-## Learn More
+Certifique-se de ter o Node.js e o npm instalados em sua máquina.
 
-To learn more about Next.js, take a look at the following resources:
+## Instalação
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone o repositório:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    ```bash
+    git clone https://github.com/seuusername/todo-app.git
+    cd todo-app
+    ```
 
-## Deploy on Vercel
+2. Instale as dependências:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+3. Configure o backend:
+
+    - Configure o arquivo `.env` com as informações do seu banco de dados.
+
+4. Execute o aplicativo:
+
+    ```bash
+    npm run dev
+    ```
+
+Acesse [http://localhost:3000](http://localhost:3000) para usar o aplicativo Todo.
+
+## Contribuição
+
+Sinta-se à vontade para contribuir para o desenvolvimento deste aplicativo. Abra uma issue para relatar bugs ou sugira novas funcionalidades através de pull requests.
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
