@@ -3,7 +3,7 @@ import axios from "axios";
 import { getCookie } from 'cookies-next';
 
 const api = axios.create({
-  baseURL: location.origin,
+  baseURL: "/"
 });
 const isServer = typeof window === 'undefined'
 
