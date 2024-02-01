@@ -3,7 +3,7 @@ import axios from "axios";
 import { getCookie } from 'cookies-next';
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "todo-160ljo3mn-samuucavalcante.vercel.app/",
 });
 const isServer = typeof window === 'undefined'
 
