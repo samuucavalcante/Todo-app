@@ -30,6 +30,7 @@ function deepMerge<T extends object, U extends object>(target: T, source: U): De
   for (const key in source) {
     if (Object.prototype.hasOwnProperty.call(source, key)) {
       if (key in target) {
+        // @ts-ignore
         merged[key] = deepMerge(target[key], source[key]);
       } else {
         merged[key] = source[key];
