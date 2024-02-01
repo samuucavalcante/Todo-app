@@ -1,5 +1,5 @@
 # Todo App
-
+<img src="./.github/todo_app.svg" />
 Este é um aplicativo Todo (Lista de Tarefas) desenvolvido por [Seu Nome] utilizando as seguintes tecnologias:
 
 - **Frontend:**
