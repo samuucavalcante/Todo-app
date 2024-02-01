@@ -1,15 +1,17 @@
 import { currentUser, redirectToSignIn } from "@clerk/nextjs"
 import { db } from "@/lib/prisma";
-import { User } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client/edge";
 
 export const intialProfile = async (): Promise<User> => {
   const user = await currentUser();
+
+  const dataDB = db ? db : new PrismaClient()
 
   if (!user) {
     return redirectToSignIn();
   }
 
-  const profile = await db.user.findUnique({
+  const profile = await dataDB.user.findUnique({
     where: {
       id: user.id
     }
@@ -19,7 +21,7 @@ export const intialProfile = async (): Promise<User> => {
     return profile
   }
 
-  const newProfile = await db.user.create({
+  const newProfile = await dataDB.user.create({
     data: {
       id: user.id,
       name: `${user.firstName} ${user.lastName}`,
