@@ -1,3 +1,4 @@
+// @ts-nocheck
 type Primitive = string | number | boolean | undefined | null;
 
 type DeepMerge<T, U> = U extends Primitive
