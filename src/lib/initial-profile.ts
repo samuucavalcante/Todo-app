@@ -8,7 +8,7 @@ export const intialProfile = async (): Promise<User> => {
 
   const dataDB = db ? db : new PrismaClient()
 
-  if (!user) {
+  if (!user?.id) {
     return redirectToSignIn();
   }
 
