@@ -1,6 +1,7 @@
 import { currentUser, redirectToSignIn } from "@clerk/nextjs"
 import { db } from "@/lib/prisma";
-import { PrismaClient, User } from "@prisma/client/edge";
+import { PrismaClient } from "@prisma/client/edge";
+import { User } from "../../prisma/generated/client";
 
 export const intialProfile = async (): Promise<User> => {
   const user = await currentUser();

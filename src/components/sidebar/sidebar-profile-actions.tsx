@@ -1,7 +1,5 @@
 "use client";
 import { UserButton } from "@clerk/nextjs";
-import { User } from "@prisma/client";
-import Image from "next/image";
 import { ReactNode } from "react";
 
 type SidebarProfileActionsProps = {
